@@ -27,7 +27,7 @@ def main ():
     parser = argparse.ArgumentParser(epilog=help_epilog)
     parser.add_argument('operation', type=lambda x: OPERATIONS_MAP[x])
     parser.add_argument('collection')
-    parser.add_argument('value', nargs='?', default=None, type=int)
+    parser.add_argument('value', nargs='?', default=None)
     parser.add_argument('-v', '--verbose', action='store_true')
     args = parser.parse_args()
     if args.operation == 'ls':
@@ -45,7 +45,7 @@ def irule (operation, collection, value=None, verbose=False):
         'collection': collection,
     }
     if value is not None:
-        rule['value'] = value
+        rule['value'] = str(value)
     cmd.append(json.dumps(rule))
     cmd.extend(('null', 'null'))
     subprocess.call(cmd)
